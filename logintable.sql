@@ -1,9 +1,14 @@
+CREATE DATABASE skillconnect;
+
+USE skillconnect;
+
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100),
   email VARCHAR(100) UNIQUE,
-  password VARCHAR(100),
+  phone VARCHAR(20),
   role VARCHAR(20),
   location VARCHAR(100),
-  skills TEXT
+  skills TEXT,
+  password VARCHAR(100)
 );
