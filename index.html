@@ -3,29 +3,183 @@
 <head>
   <meta charset="UTF-8">
   <title>SkillConnect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .hero {
+      background: url('https://images.unsplash.com/photo-1581091870622-1e7b9f3c4f1c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      padding: 120px 0;
+      text-align: center;
+    }
+    .hero h1,
+    .hero p {
+      color: #0d6efd;
+    }
+    .category-icon {
+      font-size: 2rem;
+      color: #0d6efd;
+    }
+    .testimonial {
+      font-style: italic;
+      color: #555;
+    }
+    .footer {
+      background-color: #f8f9fa;
+      padding: 30px 0;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+  </style>
 </head>
 <body class="bg-light">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
-      <a class="navbar-brand" href="#">SkillConnect</a>
+      <a class="navbar-brand fw-bold text-primary" href="#">SkillConnect</a>
       <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="registration.html">Register</a>
-        <a class="nav-link" href="login.html">Login</a>
+        <a class="nav-link" href="registration.html"><i class="bi bi-person-plus me-1"></i>Register</a>
+        <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
       </div>
     </div>
   </nav>
 
-  <div class="container text-center mt-5">
-    <h1 class="text-primary">Connect with Skilled Workers</h1>
-    <p class="text-muted">Find and hire experienced professionals for your needs or register to offer your skills.</p>
-    
-    <a href="registration.html" class="btn btn-primary me-2">Register</a>
-
-    <a href="login.html" class="btn btn-outline-primary">Login</a>
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <h1>Hire Skilled Professionals Near You</h1>
+      <p class="lead">Electricians, Plumbers, Tutors, Designers & more — all in one place.</p>
+      <form class="d-flex justify-content-center mt-4">
+        <input type="text" class="form-control w-50 me-2" placeholder="Search for services...">
+        <button class="btn btn-primary">Search</button>
+      </form>
+    </div>
   </div>
-</body>
-</html>
 
+  <!-- Carousel -->
+  <div id="serviceCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d1?auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Electrician">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Electricians</h5>
+          <p>Certified experts for home and office repairs.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1581579185169-4c1b1e2d5c3e?auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Plumber">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Plumbers</h5>
+          <p>Quick fixes and installations at your doorstep.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1584697964154-0c4b5f7b7d5e?auto=format&fit=crop&w=1600&q=80" class="d-block w-100" alt="Tutor">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Tutors</h5>
+          <p>Top-rated educators for every subject.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
 
+  <!-- Service Categories -->
+  <div class="container py-5">
+    <h2 class="text-center mb-4">Popular Categories</h2>
+    <div class="row text-center">
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-tools category-icon mb-2"></i>
+            <h5>Home Repair</h5>
+            <p class="text-muted">Electricians, carpenters, and more.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-laptop category-icon mb-2"></i>
+            <h5>IT & Tech</h5>
+            <p class="text-muted">Software, hardware, and support.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-brush category-icon mb-2"></i>
+            <h5>Design & Creative</h5>
+            <p class="text-muted">Graphics, branding, and media.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-book category-icon mb-2"></i>
+            <h5>Tutoring</h5>
+            <p class="text-muted">Academic help for all levels.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Counters -->
+  <div class="row text-center py-5 bg-white">
+    <div class="col-md-4">
+      <h2 class="text-primary"><span id="counter1">0</span>+</h2>
+      <p>Professionals Registered</p>
+    </div>
+    <div class="col-md-4">
+      <h2 class="text-primary"><span id="counter2">0</span>+</h2>
+      <p>Jobs Completed</p>
+    </div>
+    <div class="col-md-4">
+      <h2 class="text-primary"><span id="counter3">0</span>+</h2>
+      <p>Happy Clients</p>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="bg-white py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">What Clients Say</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="testimonial p-3 border rounded shadow-sm">
+            “SkillConnect helped me find a reliable electrician in minutes. Great experience!”
+            <div class="mt-2 text-end">– Priya S.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial p-3 border rounded shadow-sm">
+            “I got a freelance designer for my startup logo. Fast and professional.”
+            <div class="mt-2 text-end">– Rohan M.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial p-3 border rounded shadow-sm">
+            “The tutor I hired through SkillConnect helped my son ace his exams!”
+            <div class="mt-2 text-end">– Neha T.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal Trigger -->
+  <div class="text-center mb-5">
+    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingModal">Book a Service</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade"
