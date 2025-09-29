@@ -1,246 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SkillConnect</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    /* Hero Section with swipe animation */
-    .hero-container {
-      position: relative;
-      height: 600px;
-      overflow: hidden;
-    }
+  <meta charset="UTF-8">
+  <title>SkillConnect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    /* Hero Section with swipe animation */
+    .hero-container {
+      position: relative;
+      height: 600px;
+      overflow: hidden;
+    }
 
-    .hero-slide {
-      position: absolute;
-      top: 0;
-      left: 100%;           /* Start off-screen right */
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      transition: left 1s ease-in-out; /* Smooth slide */
-    }
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 100%;           /* Start off-screen right */
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: left 1s ease-in-out; /* Smooth slide */
+    }
 
-    .hero-slide.active {
-      left: 0;               /* Move into view */
-    }
+    .hero-slide.active {
+      left: 0;               /* Move into view */
+    }
 
-    .hero-slide.prev {
-      left: -100%;            /* Move out to left */
-    }
+    .hero-slide.prev {
+      left: -100%;            /* Move out to left */
+    }
 
-    /* Overlay for opacity */
-    .hero-slide::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.4);
-    }
+    /* Overlay for opacity */
+    .hero-slide::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4);
+    }
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100%;
-      padding: 0 20px;
-    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      padding: 0 20px;
+    }
 
-    .category-icon {
-      font-size: 2rem;
-      color: #0d6efd;
-    }
-    .testimonial {
-      font-style: italic;
-      color: #555;
-    }
-    .footer {
-      background-color: #f8f9fa;
-      padding: 30px 0;
-      font-size: 0.9rem;
-      color: #6c757d;
-    }
-  </style>
+    .category-icon {
+      font-size: 2rem;
+      color: #0d6efd;
+    }
+    .testimonial {
+      font-style: italic;
+      color: #555;
+    }
+    .footer {
+      background-color: #f8f9fa;
+      padding: 30px 0;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+  </style>
 </head>
 <body class="bg-light">
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-      <a class="navbar-brand fw-bold text-primary" href="#">SkillConnect</a>
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="registration.html"><i class="bi bi-person-plus me-1"></i>Register</a>
-        <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
-      </div>
-    </div>
-  </nav>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" href="#">SkillConnect</a>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="registration.html"><i class="bi bi-person-plus me-1"></i>Register</a>
+        <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
+      </div>
+    </div>
+  </nav>
 
-  <!-- Hero Section with swipe background images -->
-  <div class="hero-container" id="heroContainer">
-    <div class="hero-slide active" style="background-image: url('skillhomepageImage_1.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('plumber.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('sofacleaning.jpg');"></div>
+  <!-- Hero Section with swipe background images -->
+  <div class="hero-container" id="heroContainer">
+    <div class="hero-slide active" style="background-image: url('skillhomepageImage_1.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('plumber.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('sofacleaning.jpg');"></div>
 
-    <div class="hero-content">
-      <h1>Hire Skilled Professionals Near You</h1>
-      <p class="lead">Electricians, Plumbers, Cleaners, Designers & more — all in one place.</p>
-      <form class="d-flex justify-content-center mt-4">
-        <input type="text" class="form-control w-50 me-2" placeholder="Search for services...">
-        <button class="btn btn-primary">Search</button>
-      </form>
-    </div>
-  </div>
+    <div class="hero-content">
+      <h1>Hire Skilled Professionals Near You</h1>
+      <p class="lead">Electricians, Plumbers, Cleaners, Designers & more — all in one place.</p>
+      <form class="d-flex justify-content-center mt-4">
+        <input type="text" class="form-control w-50 me-2" placeholder="Search for services...">
+        <button class="btn btn-primary">Search</button>
+      </form>
+    </div>
+  </div>
 
-  <!-- Service Categories -->
-  <div class="container py-5">
-    <h2 class="text-center mb-4">Popular Categories</h2>
-    <div class="row text-center">
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-body">
-            <i class="bi bi-tools category-icon mb-2"></i>
-            <h5>Home Repair</h5>
-            <p class="text-muted">Electricians, carpenters, and more.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-body">
-            <i class="bi bi-laptop category-icon mb-2"></i>
-            <h5>IT & Tech</h5>
-            <p class="text-muted">Software, hardware, and support.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-body">
-            <i class="bi bi-brush category-icon mb-2"></i>
-            <h5>Design & Creative</h5>
-            <p class="text-muted">Graphics, branding, and media.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-body">
-            <i class="bi bi-book category-icon mb-2"></i>
-            <h5>Cleaning Services</h5>
-            <p class="text-muted">Sofa, carpet, and home cleaning.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Service Categories -->
+  <div class="container py-5">
+    <h2 class="text-center mb-4">Popular Categories</h2>
+    <div class="row text-center">
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-tools category-icon mb-2"></i>
+            <h5>Home Repair</h5>
+            <p class="text-muted">Electricians, carpenters, and more.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-laptop category-icon mb-2"></i>
+            <h5>IT & Tech</h5>
+            <p class="text-muted">Software, hardware, and support.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-brush category-icon mb-2"></i>
+            <h5>Design & Creative</h5>
+            <p class="text-muted">Graphics, branding, and media.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body">
+            <i class="bi bi-book category-icon mb-2"></i>
+            <h5>Cleaning Services</h5>
+            <p class="text-muted">Sofa, carpet, and home cleaning.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- Counters -->
-  <div class="row text-center py-5 bg-white">
-    <div class="col-md-4">
-      <h2 class="text-primary"><span id="counter1">0</span>+</h2>
-      <p>Professionals Registered</p>
-    </div>
-    <div class="col-md-4">
-      <h2 class="text-primary"><span id="counter2">0</span>+</h2>
-      <p>Jobs Completed</p>
-    </div>
-    <div class="col-md-4">
-      <h2 class="text-primary"><span id="counter3">0</span>+</h2>
-      <p>Happy Clients</p>
-    </div>
-  </div>
+  <!-- Counters -->
+  <div class="row text-center py-5 bg-white">
+    <div class="col-md-4">
+      <h2 class="text-primary"><span id="counter1">0</span>+</h2>
+      <p>Professionals Registered</p>
+    </div>
+    <div class="col-md-4">
+      <h2 class="text-primary"><span id="counter2">0</span>+</h2>
+      <p>Jobs Completed</p>
+    </div>
+    <div class="col-md-4">
+      <h2 class="text-primary"><span id="counter3">0</span>+</h2>
+      <p>Happy Clients</p>
+    </div>
+  </div>
 
-  <!-- Testimonials -->
-  <div class="bg-white py-5">
-    <div class="container">
-      <h2 class="text-center mb-4">What Clients Say</h2>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="testimonial p-3 border rounded shadow-sm">
-            “SkillConnect helped me find a reliable electrician in minutes. Great experience!”
-            <div class="mt-2 text-end">– Priya S.</div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="testimonial p-3 border rounded shadow-sm">
-            “I got a freelance designer for my startup logo. Fast and professional.”
-            <div class="mt-2 text-end">– Rohan M.</div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="testimonial p-3 border rounded shadow-sm">
-            “The cleaning service booked through SkillConnect was excellent and fast!”
-            <div class="mt-2 text-end">– Neha T.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Testimonials -->
+  <div class="bg-white py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">What Clients Say</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="testimonial p-3 border rounded shadow-sm">
+            “SkillConnect helped me find a reliable electrician in minutes. Great experience!”
+            <div class="mt-2 text-end">– Priya S.</div>
+          </div>
+                </div>
+        <div class="col-md-4">
+          <div class="testimonial p-3 border rounded shadow-sm">
+            “I got a freelance designer for my startup logo. Fast and professional.”
+            <div class="mt-2 text-end">– Rohan M.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial p-3 border rounded shadow-sm">
+            “The cleaning service booked through SkillConnect was excellent and fast!”
+            <div class="mt-2 text-end">– Neha T.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- Booking Modal Trigger -->
-  <div class="text-center mb-5">
-    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingModal">Book a Service</button>
-  </div>
+  <!-- Booking Modal Trigger -->
+  <div class="text-center mb-5">
+    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingModal">Book a Service</button>
+  </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="bookingModalLabel">Book a Service</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="serviceName" class="form-label">Service Name</label>
-              <input type="text" class="form-control" id="serviceName" placeholder="e.g., Electrician">
-            </div>
-            <div class="mb-3">
-              <label for="userLocation" class="form-label">Location</label>
-              <input type="text" class="form-control" id="userLocation" placeholder="Enter your address">
-            </div>
-            <div class="mb-3">
-              <label for="contactNumber" class="form-label">Contact Number</label>
-              <input type="tel" class="form-control" id="contactNumber" placeholder="Enter your phone number">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Booking</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bookingModalLabel">Book a Service</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="serviceName" class="form-label">Service Name</label>
+              <input type="text" class="form-control" id="serviceName" placeholder="e.g., Electrician">
+            </div>
+            <div class="mb-3">
+              <label for="userLocation" class="form-label">Location</label>
+              <input type="text" class="form-control" id="userLocation" placeholder="Enter your address">
+            </div>
+            <div class="mb-3">
+              <label for="contactNumber" class="form-label">Contact Number</label>
+              <input type="tel" class="form-control" id="contactNumber" placeholder="Enter your phone number">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Booking</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- JS for Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- JS for Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- JS for swipe hero background -->
-  <script>
-    const slides = document.querySelectorAll('.hero-slide');
-    let current = 0;
+  <!-- JS for swipe hero background -->
+  <script>
+    const slides = document.querySelectorAll('.hero-slide');
+    const totalSlides = slides.length;
+    let current = 0;
+    let intervalId;
 
-    function nextSlide() {
-      const prev = current;
-      current = (current + 1) % slides.length;
+    function nextSlide() {
+        // Check if the current slide is the last one (index 2 in a 3-slide array)
+        if (current >= totalSlides - 1) {
+            clearInterval(intervalId); // Stop the animation loop
+            return; // Exit the function, keeping the last slide visible
+        }
 
-      slides[prev].classList.remove('active');
-      slides[prev].classList.add('prev');
+        const prev = current;
+        current = current + 1; // Increment the counter (no more modulo operator)
 
-      slides[current].classList.add('active');
+        slides[prev].classList.remove('active');
+        slides[prev].classList.add('prev');
 
-      setTimeout(() => slides[prev].classList.remove('prev'), 1000);
-    }
+        slides[current].classList.add('active');
 
-    setInterval(nextSlide, 5000); // Change slide every 5 seconds
-  </script>
+        // Remove 'prev' class after the transition time (1000ms)
+        setTimeout(() => slides[prev].classList.remove('prev'), 1000);
+    }
+
+    // Store the interval ID when starting the animation
+    intervalId = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+  </script>
 
 </body>
 </html>
