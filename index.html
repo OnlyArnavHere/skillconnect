@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    /* Hero Section with looped swipe animation */
+    /* Hero Section with swipe animation */
     .hero-container {
       position: relative;
       height: 600px;
@@ -17,16 +17,20 @@
     .hero-slide {
       position: absolute;
       top: 0;
-      left: 100%;          /* Start off-screen right */
+      left: 100%;           /* Start off-screen right */
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
-      transition: left 1s ease-in-out;
+      transition: left 1s ease-in-out; /* Smooth slide */
     }
 
     .hero-slide.active {
-      left: 0;
+      left: 0;               /* Move into view */
+    }
+
+    .hero-slide.prev {
+      left: -100%;            /* Move out to left */
     }
 
     /* Overlay for opacity */
@@ -79,7 +83,7 @@
     </div>
   </nav>
 
-  <!-- Hero Section with looped swipe background images -->
+  <!-- Hero Section with swipe background images -->
   <div class="hero-container" id="heroContainer">
     <div class="hero-slide active" style="background-image: url('skillhomepageImage_1.jpg');"></div>
     <div class="hero-slide" style="background-image: url('plumber.jpg');"></div>
@@ -218,31 +222,24 @@
   <!-- JS for Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- JS for looped swipe hero background -->
+  <!-- JS for swipe hero background -->
   <script>
     const slides = document.querySelectorAll('.hero-slide');
     let current = 0;
 
     function nextSlide() {
-      const total = slides.length;
-      const currentSlide = slides[current];
-      const nextIndex = (current + 1) % total;
-      const nextSlide = slides[nextIndex];
+      const prev = current;
+      current = (current + 1) % slides.length;
 
-      nextSlide.style.left = '100%';
-      nextSlide.classList.add('active');
+      slides[prev].classList.remove('active');
+      slides[prev].classList.add('prev');
 
-      currentSlide.style.left = '-100%';
+      slides[current].classList.add('active');
 
-      setTimeout(() => {
-        nextSlide.style.left = '0';
-        currentSlide.classList.remove('active');
-        currentSlide.style.left = '100%'; // reset position
-        current = nextIndex;
-      }, 20);
+      setTimeout(() => slides[prev].classList.remove('prev'), 1000);
     }
 
-    setInterval(nextSlide, 5000);
+    setInterval(nextSlide, 5000); // Change slide every 5 seconds
   </script>
 
 </body>
