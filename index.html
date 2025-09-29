@@ -7,38 +7,51 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    /* Hero Section */
-    .hero {
-      height: 600px; /* adjust height as needed */
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 20px;
+    /* Hero Section with swipe animation */
+    .hero-container {
       position: relative;
-      color: #fff; /* text color */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transition: background-image 1s ease-in-out;
+      height: 600px;
+      overflow: hidden;
     }
 
-    /* Semi-transparent overlay for opacity */
-    .hero::before {
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 100%;           /* Start off-screen right */
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: left 1s ease-in-out; /* Smooth slide */
+    }
+
+    .hero-slide.active {
+      left: 0;               /* Move into view */
+    }
+
+    .hero-slide.prev {
+      left: -100%;            /* Move out to left */
+    }
+
+    /* Overlay for opacity */
+    .hero-slide::before {
       content: "";
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.4); /* 40% opacity */
-      z-index: 1;
+      background-color: rgba(0,0,0,0.4);
     }
 
-    /* Text and form above overlay */
-    .hero h1,
-    .hero p,
-    .hero form {
+    .hero-content {
       position: relative;
       z-index: 2;
+      text-align: center;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      padding: 0 20px;
     }
 
     .category-icon {
@@ -70,14 +83,20 @@
     </div>
   </nav>
 
-  <!-- Hero Section with rotating background images -->
-  <div class="hero" id="hero">
-    <h1>Hire Skilled Professionals Near You</h1>
-    <p class="lead">Electricians, Plumbers, Cleaners, Designers & more — all in one place.</p>
-    <form class="d-flex justify-content-center mt-4">
-      <input type="text" class="form-control w-50 me-2" placeholder="Search for services...">
-      <button class="btn btn-primary">Search</button>
-    </form>
+  <!-- Hero Section with swipe background images -->
+  <div class="hero-container" id="heroContainer">
+    <div class="hero-slide active" style="background-image: url('skillhomepageImage_1.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('plumber.jpg');"></div>
+    <div class="hero-slide" style="background-image: url('sofacleaning.jpg');"></div>
+
+    <div class="hero-content">
+      <h1>Hire Skilled Professionals Near You</h1>
+      <p class="lead">Electricians, Plumbers, Cleaners, Designers & more — all in one place.</p>
+      <form class="d-flex justify-content-center mt-4">
+        <input type="text" class="form-control w-50 me-2" placeholder="Search for services...">
+        <button class="btn btn-primary">Search</button>
+      </form>
+    </div>
   </div>
 
   <!-- Service Categories -->
@@ -203,26 +222,24 @@
   <!-- JS for Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- JS for rotating hero background images -->
+  <!-- JS for swipe hero background -->
   <script>
-    const hero = document.getElementById('hero');
-    const images = [
-      'skillhomepageImage_1.jpg',  // Electrician
-      'plumber.jpg',                // Plumber
-      'sofacleaning.jpg'            // Cleaner
-    ];
-    let i = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+    let current = 0;
 
-    function changeBackground() {
-      hero.style.backgroundImage = `url('${images[i]}')`;
-      i = (i + 1) % images.length;
+    function nextSlide() {
+      const prev = current;
+      current = (current + 1) % slides.length;
+
+      slides[prev].classList.remove('active');
+      slides[prev].classList.add('prev');
+
+      slides[current].classList.add('active');
+
+      setTimeout(() => slides[prev].classList.remove('prev'), 1000);
     }
 
-    // Initial background
-    changeBackground();
-
-    // Change every 5 seconds
-    setInterval(changeBackground, 5000);
+    setInterval(nextSlide, 5000); // Change slide every 5 seconds
   </script>
 
 </body>
