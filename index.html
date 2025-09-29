@@ -7,15 +7,40 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
+    /* Hero Section */
     .hero {
-      background: url('https://images.unsplash.com/photo-1581091870622-1e7b9f3c4f1c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-      padding: 120px 0;
+      height: 600px; /* adjust height as needed */
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 20px;
+      position: relative;
+      color: #fff; /* text color */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 1s ease-in-out;
     }
+
+    /* Semi-transparent overlay for opacity */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4); /* 40% opacity */
+      z-index: 1;
+    }
+
+    /* Text and form above overlay */
     .hero h1,
-    .hero p {
-      color: #0d6efd;
+    .hero p,
+    .hero form {
+      position: relative;
+      z-index: 2;
     }
+
     .category-icon {
       font-size: 2rem;
       color: #0d6efd;
@@ -45,56 +70,14 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <div class="hero">
-    <div class="container">
-      <h1>Hire Skilled Professionals Near You</h1>
-      <p class="lead">Electricians, Plumbers, Cleaners, Designers & more — all in one place.</p>
-      <form class="d-flex justify-content-center mt-4">
-        <input type="text" class="form-control w-50 me-2" placeholder="Search for services...">
-        <button class="btn btn-primary">Search</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Carousel -->
-  <div id="serviceCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <!-- Electrician -->
-      <div class="carousel-item active">
-        <img src="skillhomepageImage_1.jpg" class="d-block w-100" alt="Electrician">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Electricians</h5>
-          <p>Certified experts for home and office repairs.</p>
-        </div>
-      </div>
-
-      <!-- Plumber -->
-      <div class="carousel-item">
-        <img src="plumber.jpg" class="d-block w-100" alt="Plumber">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Plumbers</h5>
-          <p>Quick fixes and installations at your doorstep.</p>
-        </div>
-      </div>
-
-      <!-- Cleaner -->
-      <div class="carousel-item">
-        <img src="sofacleaning.jpg" class="d-block w-100" alt="Cleaner">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Cleaners</h5>
-          <p>Professional sofa, carpet, and home cleaning services.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Carousel Controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </button>
+  <!-- Hero Section with rotating background images -->
+  <div class="hero" id="hero">
+    <h1>Hire Skilled Professionals Near You</h1>
+    <p class="lead">Electricians, Plumbers, Cleaners, Designers & more — all in one place.</p>
+    <form class="d-flex justify-content-center mt-4">
+      <input type="text" class="form-control w-50 me-2" placeholder="Search for services...">
+      <button class="btn btn-primary">Search</button>
+    </form>
   </div>
 
   <!-- Service Categories -->
@@ -217,6 +200,30 @@
     </div>
   </div>
 
+  <!-- JS for Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS for rotating hero background images -->
+  <script>
+    const hero = document.getElementById('hero');
+    const images = [
+      'skillhomepageImage_1.jpg',  // Electrician
+      'plumber.jpg',                // Plumber
+      'sofacleaning.jpg'            // Cleaner
+    ];
+    let i = 0;
+
+    function changeBackground() {
+      hero.style.backgroundImage = `url('${images[i]}')`;
+      i = (i + 1) % images.length;
+    }
+
+    // Initial background
+    changeBackground();
+
+    // Change every 5 seconds
+    setInterval(changeBackground, 5000);
+  </script>
+
 </body>
 </html>
