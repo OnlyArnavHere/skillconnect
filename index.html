@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    /* Hero Section with smooth infinite swipe */
+    /* Hero Section with infinite swipe */
     .hero-container {
       position: relative;
       height: 600px;
@@ -16,9 +16,9 @@
 
     .hero-slider {
       display: flex;
-      width: calc(6 * 100%); /* 3 slides + 3 duplicates for seamless loop */
+      width: calc(4 * 100%); /* 3 slides + 1 duplicate for looping */
       height: 100%;
-      animation: slide 18s linear infinite;
+      transition: transform 1s ease-in-out;
     }
 
     .hero-slide {
@@ -49,11 +49,6 @@
       color: #fff;
       text-align: center;
       padding: 0 20px;
-    }
-
-    @keyframes slide {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); } /* move exactly one set of slides */
     }
 
     .category-icon {
@@ -91,10 +86,8 @@
       <div class="hero-slide" style="background-image: url('skillhomepageImage_1.jpg');"></div>
       <div class="hero-slide" style="background-image: url('plumber.jpg');"></div>
       <div class="hero-slide" style="background-image: url('sofacleaning.jpg');"></div>
-      <!-- Duplicates for seamless loop -->
+      <!-- Duplicate first slide for seamless loop -->
       <div class="hero-slide" style="background-image: url('skillhomepageImage_1.jpg');"></div>
-      <div class="hero-slide" style="background-image: url('plumber.jpg');"></div>
-      <div class="hero-slide" style="background-image: url('sofacleaning.jpg');"></div>
     </div>
 
     <div class="hero-content">
@@ -229,5 +222,29 @@
 
   <!-- JS for Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS for infinite swipe hero -->
+  <script>
+    const slider = document.querySelector('.hero-slider');
+    const slides = document.querySelectorAll('.hero-slide');
+    let index = 0;
+
+    function nextSlide() {
+      index++;
+      slider.style.transition = 'transform 1s ease-in-out';
+      slider.style.transform = `translateX(-${index * 100}%)`;
+
+      if (index === slides.length - 1) { // duplicate first slide
+        setTimeout(() => {
+          slider.style.transition = 'none';
+          slider.style.transform = 'translateX(0)';
+          index = 0;
+        }, 1000); // wait for transition to finish
+      }
+    }
+
+    setInterval(nextSlide, 5000);
+  </script>
+
 </body>
 </html>
