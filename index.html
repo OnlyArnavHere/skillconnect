@@ -1,256 +1,263 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SkillConnect</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    /* Hero Section with swipe animation */
-    .hero-container {
-      position: relative;
-      height: 600px;
-      overflow: hidden;
-    }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Worker Dashboard — SkillConnect (Wireframe)</title>
+  <style>
+    /* Simple modern wireframe styles — responsive grid layout */
+    :root{
+      --bg:#0f1724; /* dark navy */
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#6ee7b7; /* mint */
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#071023 0%, #071826 100%);
+      color:#e6eef6;
+      padding:24px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-    .hero-slide {
-      position: absolute;
-      top: 0;
-      left: 100%;           /* Start off-screen right */
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      transition: left 1s ease-in-out; /* Smooth slide */
-    }
+    .app{
+      max-width:1200px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:20px;\      align-items:start;
+    }
 
-    .hero-slide.active {
-      left: 0;               /* Move into view */
-    }
+    header.topbar{
+      grid-column:1/3;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;\      margin-bottom:6px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:18px;box-shadow:0 6px 20px rgba(3,7,18,0.7);
+    }
+    .search{flex:1; margin:0 12px}
+    .search input{width:100%;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit}
+    .icons{display:flex;gap:12px;align-items:center}
+    .icon-btn{background:var(--card);padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
 
-    .hero-slide.prev {
-      left: -100%;            /* Move out to left */
-    }
+    /* Main left column content */
+    .left{display:grid;gap:16px}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .card small{color:var(--muted);display:block}
+    .card h3{margin:8px 0 0;font-size:18px}
 
-    /* Overlay for opacity */
-    .hero-slide::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.4);
-    }
+    /* Jobs / Recommendations */
+    .jobs{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .jobs h2{margin:0 0 12px;font-size:18px}
+    .job-list{display:grid;gap:10px}
+    .job{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:var(--glass-2);border:1px solid rgba(255,255,255,0.02)}
+    .job .meta{flex:1}
+    .job .meta h4{margin:0 0 4px}
+    .job .meta small{color:var(--muted)}
+    .job .cta{display:flex;gap:8px}
+    .btn{padding:8px 12px;border-radius:10px;border:none;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,#04c39a,#06b6d4);color:#042021;font-weight:600}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--accent)}
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100%;
-      padding: 0 20px;
-    }
+    /* Applications tracker */
+    .tracker{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .tabs{display:flex;gap:6px;margin-bottom:10px}
+    .tab{padding:8px 10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.02);cursor:pointer;color:var(--muted)}
+    .tab.active{background:rgba(110,231,183,0.08);color:var(--accent);border-color:rgba(110,231,183,0.12)}
+    .timeline{display:grid;gap:10px}
+    .timeline .item{display:flex;justify-content:space-between;gap:12px;padding:10px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent)}
 
-    .category-icon {
-      font-size: 2rem;
-      color: #0d6efd;
-    }
-    .testimonial {
-      font-style: italic;
-      color: #555;
-    }
-    .footer {
-      background-color: #f8f9fa;
-      padding: 30px 0;
-      font-size: 0.9rem;
-      color: #6c757d;
-    }
-  </style>
+    /* Right column */
+    .right{display:grid;gap:12px}
+    .profile{padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03)}
+    .profile .avatar{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,#f97316,#ef4444);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .progress{height:12px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden;margin-top:10px}
+    .progress > span{display:block;height:100%;background:linear-gradient(90deg,#06b6d4,#6ee7b7)}
+
+    .messages{padding:12px;border-radius:12px;background:var(--glass-2);border:1px solid rgba(255,255,255,0.02)}
+
+    .training{padding:12px;border-radius:12px;background:var(--card)}
+
+    footer.small{grid-column:1/3;margin-top:12px;color:var(--muted);font-size:13px}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .app{grid-template-columns:1fr;}
+      .cards{grid-template-columns:repeat(2,1fr)}
+      header.topbar{flex-direction:column;align-items:stretch}
+    }
+
+  </style>
 </head>
-<body class="bg-light">
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">SC</div>
+        <div>
+          <div style="font-weight:700">SkillConnect</div>
+          <div style="font-size:12px;color:var(--muted)">Worker dashboard</div>
+        </div>
+      </div>
+      <div class="search"><input placeholder="Search jobs, companies or skills..." /></div>
+      <div class="icons">
+        <div class="icon-btn">🔔</div>
+        <div class="icon-btn">💬</div>
+        <div class="icon-btn">⚙️</div>
+        <div class="icon-btn">Arnav ▾</div>
+      </div>
+    </header>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-      <a class="navbar-brand fw-bold text-primary" href="#">SkillConnect</a>
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="registration.html"><i class="bi bi-person-plus me-1"></i>Register</a>
-        <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
-      </div>
-    </div>
-  </nav>
+    <main class="left">
+      <section class="cards">
+        <div class="card">
+          <small>Jobs Applied</small>
+          <h3>12</h3>
+        </div>
+        <div class="card">
+          <small>Active Applications</small>
+          <h3>3</h3>
+        </div>
+        <div class="card">
+          <small>Jobs Completed</small>
+          <h3>8</h3>
+        </div>
+        <div class="card">
+          <small>Earnings (Month)</small>
+          <h3>$520</h3>
+        </div>
+      </section>
 
-  <!-- Hero Section with swipe background images -->
-  <div class="hero-container" id="heroContainer">
-    <div class="hero-slide active" style="background-image: url('skillhomepageImage_1.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('plumber.jpg');"></div>
-    <div class="hero-slide" style="background-image: url('sofacleaning.jpg');"></div>
+      <section class="jobs">
+        <h2>Recommended Jobs</h2>
+        <div class="job-list">
+          <div class="job">
+            <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700">F</div>
+            <div class="meta">
+              <h4>Frontend Developer — Flex</h4>
+              <small>Firefly Studio • Remote • ₹15,000 · 3 days</small>
+            </div>
+            <div class="cta">
+              <button class="btn ghost">Save</button>
+              <button class="btn primary">Apply</button>
+            </div>
+          </div>
 
-    <div class="hero-content">
-      <h1>Hire Skilled Professionals Near You</h1>
-      <p class="lead">Electricians, Plumbers, Cleaners, Designers & more — all in one place.</p>
-      <form class="d-flex justify-content-center mt-4">
-        <input type="text" class="form-control w-50 me-2" placeholder="Search for services...">
-        <button class="btn btn-primary">Search</button>
-      </form>
-    </div>
-  </div>
+          <div class="job">
+            <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#ef4444,#f97316);display:flex;align-items:center;justify-content:center;font-weight:700">D</div>
+            <div class="meta">
+              <h4>Data Entry — Onsite</h4>
+              <small>Delta Logistics • 5km • ₹400/hr</small>
+            </div>
+            <div class="cta">
+              <button class="btn ghost">Save</button>
+              <button class="btn primary">Apply</button>
+            </div>
+          </div>
 
-  <!-- Service Categories -->
-  <div class="container py-5">
-    <h2 class="text-center mb-4">Popular Categories</h2>
-    <div class="row text-center">
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-body">
-            <i class="bi bi-tools category-icon mb-2"></i>
-            <h5>Home Repair</h5>
-            <p class="text-muted">Electricians, carpenters, and more.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-body">
-            <i class="bi bi-laptop category-icon mb-2"></i>
-            <h5>IT & Tech</h5>
-            <p class="text-muted">Software, hardware, and support.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-body">
-            <i class="bi bi-brush category-icon mb-2"></i>
-            <h5>Design & Creative</h5>
-            <p class="text-muted">Graphics, branding, and media.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-body">
-            <i class="bi bi-book category-icon mb-2"></i>
-            <h5>Cleaning Services</h5>
-            <p class="text-muted">Sofa, carpet, and home cleaning.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          <div class="job">
+            <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#06b6d4,#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700">M</div>
+            <div class="meta">
+              <h4>Mobile App Tester — Temp</h4>
+              <small>Moonbyte • Remote • ₹800 · 1 day</small>
+            </div>
+            <div class="cta">
+              <button class="btn ghost">Save</button>
+              <button class="btn primary">Apply</button>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <!-- Counters -->
-  <div class="row text-center py-5 bg-white">
-    <div class="col-md-4">
-      <h2 class="text-primary"><span id="counter1">0</span>+</h2>
-      <p>Professionals Registered</p>
-    </div>
-    <div class="col-md-4">
-      <h2 class="text-primary"><span id="counter2">0</span>+</h2>
-      <p>Jobs Completed</p>
-    </div>
-    <div class="col-md-4">
-      <h2 class="text-primary"><span id="counter3">0</span>+</h2>
-      <p>Happy Clients</p>
-    </div>
-  </div>
+      <section class="tracker">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <h2 style="margin:0;font-size:18px">Applications</h2>
+          <small style="color:var(--muted)">Updated 2h ago</small>
+        </div>
+        <div class="tabs" id="tabs">
+          <div class="tab active" data-tab="pending">Pending</div>
+          <div class="tab" data-tab="accepted">Accepted</div>
+          <div class="tab" data-tab="rejected">Rejected</div>
+        </div>
 
-  <!-- Testimonials -->
-  <div class="bg-white py-5">
-    <div class="container">
-      <h2 class="text-center mb-4">What Clients Say</h2>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="testimonial p-3 border rounded shadow-sm">
-            “SkillConnect helped me find a reliable electrician in minutes. Great experience!”
-            <div class="mt-2 text-end">– Priya S.</div>
-          </div>
-                </div>
-        <div class="col-md-4">
-          <div class="testimonial p-3 border rounded shadow-sm">
-            “I got a freelance designer for my startup logo. Fast and professional.”
-            <div class="mt-2 text-end">– Rohan M.</div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="testimonial p-3 border rounded shadow-sm">
-            “The cleaning service booked through SkillConnect was excellent and fast!”
-            <div class="mt-2 text-end">– Neha T.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        <div class="timeline" id="timeline">
+          <!-- Pending items by default -->
+          <div class="item"><div>Frontend Developer — Firefly</div><div><small style="color:var(--muted)">Pending</small></div></div>
+          <div class="item"><div>QA Tester — Moonbyte</div><div><small style="color:var(--muted)">Interview on Oct 4</small></div></div>
+          <div class="item"><div>Warehouse Helper — Delta</div><div><small style="color:var(--muted)">Pending</small></div></div>
+        </div>
+      </section>
 
-  <!-- Booking Modal Trigger -->
-  <div class="text-center mb-5">
-    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingModal">Book a Service</button>
-  </div>
+    </main>
 
-  <!-- Modal -->
-  <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="bookingModalLabel">Book a Service</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="serviceName" class="form-label">Service Name</label>
-              <input type="text" class="form-control" id="serviceName" placeholder="e.g., Electrician">
-            </div>
-            <div class="mb-3">
-              <label for="userLocation" class="form-label">Location</label>
-              <input type="text" class="form-control" id="userLocation" placeholder="Enter your address">
-            </div>
-            <div class="mb-3">
-              <label for="contactNumber" class="form-label">Contact Number</label>
-              <input type="tel" class="form-control" id="contactNumber" placeholder="Enter your phone number">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Booking</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+    <aside class="right">
+      <div class="profile">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="avatar">AT</div>
+          <div>
+            <div style="font-weight:700">Arnav Tawar</div>
+            <div style="font-size:13px;color:var(--muted)">Frontend • Mumbai</div>
+          </div>
+        </div>
+        <div class="progress"><span style="width:72%"></span></div>
+        <div style="font-size:13px;color:var(--muted);margin-top:8px">Profile 72% complete — <a style="color:var(--accent);text-decoration:none">Finish now</a></div>
+      </div>
 
-  <!-- JS for Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <div class="messages">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <strong>Messages</strong>
+          <small style="color:var(--muted)">2 unread</small>
+        </div>
+        <div style="display:grid;gap:8px">
+          <div style="display:flex;justify-content:space-between"><div><strong>Firefly</strong><div style="font-size:12px;color:var(--muted)">Hey — can you start Monday?</div></div><div style="align-self:center"><small style="color:var(--muted)">1h</small></div></div>
+          <div style="display:flex;justify-content:space-between"><div><strong>Moonbyte</strong><div style="font-size:12px;color:var(--muted)">Interview invite</div></div><div style="align-self:center"><small style="color:var(--muted)">3h</small></div></div>
+        </div>
+      </div>
 
-  <!-- JS for swipe hero background -->
-  <script>
-    const slides = document.querySelectorAll('.hero-slide');
-    const totalSlides = slides.length;
-    let current = 0;
-    let intervalId;
+      <div class="training">
+        <strong>Suggested upskills</strong>
+        <div style="font-size:13px;color:var(--muted);margin-top:8px">• Short React refresher — 2 hrs<br>• Excel basics — 1.5 hrs</div>
+        <div style="margin-top:10px"><button class="btn primary">Browse courses</button></div>
+      </div>
 
-    function nextSlide() {
-        // Check if the current slide is the last one (index 2 in a 3-slide array)
-        if (current >= totalSlides - 1) {
-            clearInterval(intervalId); // Stop the animation loop
-            return; // Exit the function, keeping the last slide visible
-        }
+    </aside>
 
-        const prev = current;
-        current = current + 1; // Increment the counter (no more modulo operator)
+    <footer class="small">Tip: Workers prefer short actionable UI — make "Apply" and "Message" large and obvious. This wireframe is a starting point.</footer>
+  </div>
 
-        slides[prev].classList.remove('active');
-        slides[prev].classList.add('prev');
-
-        slides[current].classList.add('active');
-
-        // Remove 'prev' class after the transition time (1000ms)
-        setTimeout(() => slides[prev].classList.remove('prev'), 1000);
-    }
-
-    // Store the interval ID when starting the animation
-    intervalId = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-  </script>
-
+  <script>
+    // small interactivity for tabs
+    document.querySelectorAll('#tabs .tab').forEach(t=>t.addEventListener('click',e=>{
+      document.querySelectorAll('#tabs .tab').forEach(x=>x.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+      const which = e.currentTarget.dataset.tab;
+      const timeline = document.getElementById('timeline');
+      // replace contents quickly — in real app you'd fetch
+      if(which==='pending'){
+        timeline.innerHTML = `
+          <div class="item"><div>Frontend Developer — Firefly</div><div><small style="color:var(--muted)">Pending</small></div></div>
+          <div class="item"><div>QA Tester — Moonbyte</div><div><small style="color:var(--muted)">Interview on Oct 4</small></div></div>
+          <div class="item"><div>Warehouse Helper — Delta</div><div><small style="color:var(--muted)">Pending</small></div></div>`;
+      } else if(which==='accepted'){
+        timeline.innerHTML = `
+          <div class="item"><div>Delivery — QuickShip</div><div><small style="color:var(--muted)">Accepted — Starts Oct 2</small></div></div>
+          <div class="item"><div>Data Cleanup — SoloTech</div><div><small style="color:var(--muted)">Accepted — In progress</small></div></div>`;
+      } else {
+        timeline.innerHTML = `
+          <div class="item"><div>Retail Helper — ShopX</div><div><small style="color:var(--muted)">Rejected</small></div></div>`;
+      }
+    }))
+  </script>
 </body>
 </html>
